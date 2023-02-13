@@ -1,0 +1,28 @@
+version: '3'
+
+output: prefixed
+
+vars:
+  COVERNAME: 'coverage'
+  COVEREXT: '.out'
+  COVERFILE: '{{.COVERNAME}}{{.COVEREXT}}'
+  COVERHTML: '{{.COVERNAME}}.html'
+
+tasks:
+
+  go-test:
+    desc: 'runs `go test` in race detection and atomic coverage collection mode'
+    dir: '{{.USER_WORKING_DIR}}'
+    cmds:
+      - cmd: go test -v ./... -race -coverprofile={{.COVERFILE}} -covermode=atomic
+
+  go-cover:
+    desc: 'runs the go-test task, the `cover` Go tool and displays the generated HTML report'
+    dir: '{{.USER_WORKING_DIR}}'
+    deps: 
+      - task: go-test
+    cmds:
+      - cmd: go tool cover -html={{.COVERFILE}} -o {{.COVERHTML}}
+      - cmd: cmd /c start {{.COVERHTML}}
+        platforms: [windows]
+
