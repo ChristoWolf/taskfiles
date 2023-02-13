@@ -1,2 +1,1 @@
-# taskfiles
-A collection of Taskfiles for https://taskfile.dev/
+# A collection of Taskfiles for [Task](https://taskfile.dev/)
