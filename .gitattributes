@@ -1,4 +1,4 @@
-*.y*ml linguist-vendored=false
-*.y*ml linguist-generated=false
-*.y*ml linguist-documentation=false
-*.y*ml linguist-detectable=true
+*.yml linguist-vendored=false
+*.yml linguist-generated=false
+*.yml linguist-documentation=false
+*.yml linguist-detectable=true
