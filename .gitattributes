@@ -1,0 +1,4 @@
+*.y*ml linguist-vendored=false
+*.y*ml linguist-generated=false
+*.y*ml linguist-documentation=false
+*.y*ml linguist-detectable=true
