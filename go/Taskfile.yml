@@ -9,23 +9,23 @@ vars:
 
 tasks:
 
-  go-test:
+  test:
     desc: 'runs `go test` in race detection and atomic coverage collection mode'
     dir: '{{.USER_WORKING_DIR}}'
     cmds:
       - cmd: go test -v ./... -race -coverprofile={{.COVER_FILE}} -covermode=atomic
 
-  go-cover:
-    desc: 'runs the go-test task, the `cover` Go tool and displays the generated HTML report'
+  cover:
+    desc: 'runs the test task, the `cover` Go tool and displays the generated HTML report'
     dir: '{{.USER_WORKING_DIR}}'
     deps: 
-      - task: go-test
+      - task: test
     cmds:
       - cmd: go tool cover -html={{.COVER_FILE}} -o {{.COVER_HTML}}
       - cmd: cmd /c start {{.COVER_HTML}}
         platforms: [windows]
 
-  go-lint:
+  lint:
     desc: 'runs `golangci-lint` with the first recursively found config file'
     dir: '{{.USER_WORKING_DIR}}'
     vars:
