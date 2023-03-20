@@ -1,0 +1,23 @@
+version: '3'
+
+output: prefixed
+
+tasks:
+
+  manual:
+    desc: 'runs `golangci-lint` with provided CLI arguments'
+    dir: '{{.USER_WORKING_DIR}}'
+    cmds:
+      - cmd: golangci-lint run {{.CLI_ARGS}}
+    platforms: [windows]
+
+  auto:
+    desc: 'runs `golangci-lint` with first recursively found config file, also supports CLI arguments'
+    dir: '{{.USER_WORKING_DIR}}'
+    vars:
+      CONFIG_FILE:
+        sh: where /r "{{.USER_WORKING_DIR}}" .golangci.*
+    cmds:
+      - cmd: 'echo found config file: "{{.CONFIG_FILE}}"'
+      - cmd: golangci-lint run --config="{{.CONFIG_FILE}}" {{.CLI_ARGS}}
+    platforms: [windows]

@@ -7,6 +7,9 @@ vars:
   COVER_FILE: '{{.COVER_NAME}}.out'
   COVER_HTML: '{{.COVER_NAME}}.html'
 
+includes:
+  lint: ./lint
+
 tasks:
 
   test:
@@ -24,14 +27,3 @@ tasks:
       - cmd: go tool cover -html={{.COVER_FILE}} -o {{.COVER_HTML}}
       - cmd: cmd /c start {{.COVER_HTML}}
         platforms: [windows]
-
-  lint:
-    desc: 'runs `golangci-lint` with the first recursively found config file'
-    dir: '{{.USER_WORKING_DIR}}'
-    vars:
-      CONFIG_FILE:
-        sh: where /r "{{.USER_WORKING_DIR}}" .golangci.*
-    cmds:
-      - cmd: 'echo found config file: "{{.CONFIG_FILE}}"'
-      - cmd: golangci-lint run --config="{{.CONFIG_FILE}}"
-    platforms: [windows]
