@@ -1,4 +1,6 @@
 version: '3'
 
+output: prefixed
+
 includes:
   go: ./go
